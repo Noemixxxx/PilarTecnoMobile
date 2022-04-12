@@ -1,13 +1,26 @@
-import React, { Component, useCallback } from 'react';
+import 'react-native-gesture-handler';
+import React, { Component, useCallback , useEffect} from 'react';
 import { 
     View, 
     Text
 } from 'react-native';
-import Home from '../screens/Home'
+import Home from '../screens/Home';
+import AppStack from '../routs/app';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import {store} from '../store'
+import { hasLocationPermission } from '../LocationPermission';
 
-export default App = () => {
-
+export default App = (props) => {
+    useEffect(() => {
+        hasLocationPermission()
+    }, [])
+    
     return(
-        <Home />
+       <Provider store={store}>
+        <NavigationContainer >
+            <AppStack />
+        </NavigationContainer>
+       </Provider>
     )
 }
